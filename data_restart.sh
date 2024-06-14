@@ -6,9 +6,9 @@ while true; do
     if echo "$OUTPUT" | grep -q "Connection reset by peer"; then
         echo "Connection reset by peer detected. Restarting data service..."
         
-        adb shell svc data disable
+        svc data disable
         sleep 2
-        adb shell svc data enable
+        svc data enable
     fi
     
     sleep 5
