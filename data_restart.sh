@@ -1,10 +1,10 @@
 #!/bin/bash
 
 while true; do
-    OUTPUT=$(./toybox wget http://gstatic.com/generate_204 2>&1)
+    OUTPUT=$(timeout 3 ./toybox wget http://gstatic.com/generate_204 2>&1)
 
-    if echo "$OUTPUT" | grep -q "Connection reset by peer"; then
-        echo "Connection reset by peer detected. Restarting data service..."
+    if [ $? -ne 0 ] || [ -z "$OUTPUT" ]; then
+        echo "No response or error detected. Restarting data service..."
         
         svc data disable
         sleep 2
